@@ -244,6 +244,8 @@ class SendMessage:
 
             return True, recipient['messageId'],recipient['status']
 
-        except AfricasTalkingGatewayException, e:
-            print('Encountered an error while sending: %s' % str(e))
-            return False, str(e)
+        except:
+            # AfricasTalkingGatewayException,e:
+            # print('Encountered an error while sending: %s' % str(e))
+            # return False, str(e)
+            pass

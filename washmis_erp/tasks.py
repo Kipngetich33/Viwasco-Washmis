@@ -216,7 +216,6 @@ def send_bill():
 		})
 
 		if len(list_of_values) == 0:
-			print "None Exist"
 			new_system_value = frappe.get_doc({"doctype":"System Values"})
 			new_system_value.target_document = "Sales Invoice"
 			new_system_value.target_record = "Bill"
@@ -242,8 +241,6 @@ def send_valve_closing_command():
 	Function that sends commnads to close meter
 	valve
 	'''
-	print "*"*80
-	print "Checking for Disconnections"
 	# get all overdue sales invoices based on due datetime
 	connection = pymysql.connect(
             host='localhost',
@@ -263,8 +260,6 @@ def send_valve_closing_command():
 			cursor.execute(sql)
 			unpaid_invoices = cursor.fetchall()
 
-			print "unpaid invoice"
-			print unpaid_invoices
 			for unpaid in unpaid_invoices:
 				posting_date = unpaid["posting_date"]
 				time_now = datetime.datetime.now()
@@ -298,7 +293,6 @@ def send_valve_closing_command():
 						pass
 					else:
 						# meter is currently hence send disonnection message
-						print "send disconnection message here"
 						# this is where we call the send message function and provide it
 						# with message, device_address 
 						send_message_function(list_of_serial_no[0]['closing_command'],meter_serial_no)
@@ -317,7 +311,6 @@ def send_valve_opening_command():
 	Function that gets all customers whose valves are closed
 	and opens them if the customer has made necessary payment
 	'''
-	print "inside opening valve"
 	# get all overdue sales invoices based on due datetime
 	connection = pymysql.connect(
             host='localhost',
@@ -330,7 +323,6 @@ def send_valve_opening_command():
 
 	try:
 		with connection.cursor() as cursor: 
-			print "inside with"
 			# get all disconnected customers
             # construct the sql syntax
 			sql = "SELECT customer_name,opening_command,meter_serial_no FROM `tabSurvey Data` WHERE connection_with_company = 'Not Connected'"
@@ -338,7 +330,6 @@ def send_valve_opening_command():
 			cursor.execute(sql)
 			disconencted_customers = cursor.fetchall()
 			for disconnected_customer in disconencted_customers:
-				print "for loop"
 				# check if the have any unpaid invoices
 				sql = "SELECT customer FROM `tabSales Invoice` WHERE customer_name = '{}' and status = 'Unpaid'".format(disconnected_customer["customer_name"])
 				cursor.execute(sql)
@@ -346,10 +337,8 @@ def send_valve_opening_command():
 
 				if len(list_of_unpaid) >0:
 					# do not reopen the valve since the customer has not paid
-					print "less than 0"
 					pass
 				elif len(list_of_unpaid) == 0:
-					print "more than zero"
 					# the customer has cleared all the bills hence open valve
 					# send the opening valve signal here
 					send_message_function(disconnected_customer["opening_command"],disconnected_customer["meter_serial_no"])
@@ -374,11 +363,8 @@ def get_meter_details():
 	# commit the changes
 	cursor.execute(sql)
 	unpaid_invoices = cursor.fetchall()
-	print unpaid_invoices
 
 def send_message_function(message,device_address):
-	print message
-	print device_address
 	message_instance = Sending_Signals(message,device_address,"naked.js","naked.js")
 	message_instance.main()
 

@@ -217,7 +217,7 @@ class AfricasTalkingGateway:
             self.responseCode = response.getcode()
             response = response.read()
             if self.Debug:
-                print response
+                print(response)
             return response
 
 
@@ -235,15 +235,15 @@ class SendMessage:
             results = gateway.sendMessage(self.to, message)
             for recipient in results:
                 # status is either "Success" or "error message"
-                print 'number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
+                print('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
                                                                     recipient[
                                                                         'status'],
                                                                     recipient[
                                                                         'messageId'],
-                                                                    recipient['cost'])
+                                                                    recipient['cost']))
 
             return True, recipient['messageId'],recipient['status']
 
         except AfricasTalkingGatewayException, e:
-            print 'Encountered an error while sending: %s' % str(e)
+            print('Encountered an error while sending: %s' % str(e))
             return False, str(e)

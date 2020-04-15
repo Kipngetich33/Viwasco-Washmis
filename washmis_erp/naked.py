@@ -39,7 +39,7 @@ class Sending_Signals:
             js_command = self.file_path
             return execute_js(js_command)
         except Exception as e:
-            print e
+            print(e)
 
 
     def main(self):

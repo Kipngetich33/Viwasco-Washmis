@@ -64,7 +64,6 @@ def process_data():
     for feature in all_features:
         # serial number
         current_serial_no = feature["properties"]["serial_no"]
-        print current_serial_no
 
         # save location
         if current_serial_no == None:

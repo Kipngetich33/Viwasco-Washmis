@@ -14,5 +14,4 @@ class MeterMapLocation(Document):
         pass
     
     def on_update(self):
-        print "*"*80
-        print self
+        pass

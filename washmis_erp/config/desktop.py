@@ -1,14 +1,21 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from frappe import _
+import frappe
 
 def get_data():
 	return [
 		{
 			"module_name": "WaSHMIS ERP",
-			"color": "#61a4cc",
-			"icon": "fa fa-money",
+			"category": "Modules",
+			"label": _("WaSHMIS ERP"),
+			"color": "#1abc9c",
+			"icon": "fa fa-check-square-o",
 			"type": "module",
-			"label": _("WaSHMIS ERP")
-		}
+			"disable_after_onboard": 1,
+			"description": "WaSHMIS ERP",
+			"onboard_present": 1
+		},
 	]
+
+
+		

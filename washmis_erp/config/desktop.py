@@ -9,7 +9,7 @@ def get_data():
 			"category": "Modules",
 			"label": _("WaSHMIS ERP"),
 			"color": "#1abc9c",
-			"icon": "fa fa-check-square-o",
+			"icon": "octicon octicon-file-submodule",
 			"type": "module",
 			"disable_after_onboard": 1,
 			"description": "WaSHMIS ERP",
